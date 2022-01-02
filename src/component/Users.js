@@ -3,9 +3,9 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Select from "react-select";
 import { ErrorMessage } from 'formik';
-import TextField from './TextField';
-import fetch from './network/fetchTimeout';
-import { request } from './network/RequestType';
+import TextField from '../utils/TextField';
+import fetch from '../network/fetchTimeout';
+import { request } from '../network/RequestType';
 
 const options = [
     { value: "Individual", label: "Individual" },
