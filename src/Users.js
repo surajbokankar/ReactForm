@@ -14,14 +14,17 @@ const options = [
 
 const Users = () => {
     const validate = Yup.object({
-        firstName: Yup.string().max(10, "Must to 10 characters max")
-            .required('Firstname require'),
-        lastName: Yup.string().max(10, "Must to 10 characters max")
-            .required('Lastname required'),
+        firstName: Yup.string()
+            .required('Firstname require').matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for Firstname "),
+        lastName: Yup.string()
+            .required('Lastname required').matches(/^[a-zA-Z ]+$/, "Only alphabets are allowed for Lastname "),
         email: Yup.string().email('Email is invalid')
             .required('Email required'),
-        type: Yup.string().max(10, "Must to 10 characters max")
-            .required('Type require'),
+        phone: Yup.string().max(10, "Must to 10 characters max")
+            .required('Type require').matches(/^[0-9]/, "Only Numbers are allowed for this field "),
+        type: Yup.string().max(10, "Must to 10 digit only")
+            .required('Type require'), 
+
     })
 
     const callAPI = (values) => {
@@ -29,7 +32,8 @@ const Users = () => {
             name: values.firstName,
             lastname: values.lastname,
             email: values.email,
-            type: values.type
+            type: values.type,
+            phone:values.phone
         }
         fetch('http://ip-api.com/json', request("POST", json), 5000) // throw after max 5 seconds timeout error
             .then((result) => {
@@ -50,7 +54,8 @@ const Users = () => {
                 firstName: '',
                 lastName: '',
                 email: '',
-                type: ''
+                type: '',
+                phone:''
             }}
             validationSchema={validate}
             onSubmit={(values) =>
@@ -66,6 +71,7 @@ const Users = () => {
                             <TextField name="firstName" type="text" label="First Name" />
                             <TextField name="lastName" type="text" label="Last Name" />
                             <TextField name="email" type="email" label="Email" />
+                            <TextField name="phone" type="text" label="Mobile" />
                             <div className="type">
                                 <Select
                                     name="type"
