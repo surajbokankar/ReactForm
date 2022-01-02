@@ -21,10 +21,9 @@ const Users = () => {
         email: Yup.string().email('Email is invalid')
             .required('Email required'),
         phone: Yup.string().max(10, "Must to 10 characters max")
-            .required('Type require').matches(/^[0-9]/, "Only Numbers are allowed for this field "),
+            .required('Mobile Number require').matches(/^[0-9]/, "Only Numbers are allowed for this field "),
         type: Yup.string().max(10, "Must to 10 digit only")
             .required('Type require'), 
-
     })
 
     const callAPI = (values) => {
@@ -62,7 +61,7 @@ const Users = () => {
                 callAPI(values)
             }
         >
-            {fomrik => {
+            {formik => {
                 return (
 
                     <div className="container">
@@ -76,7 +75,7 @@ const Users = () => {
                                 <Select
                                     name="type"
                                     options={options}
-                                    onChange={(text) => onChangeType(text, fomrik)}
+                                    onChange={(text) => onChangeType(text, formik)}
                                 />
                                 <ErrorMessage component="div" name="type" className="error" />
                             </div>
